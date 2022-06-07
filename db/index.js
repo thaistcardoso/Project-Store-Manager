@@ -3,8 +3,8 @@ const mysql = require('mysql2/promise');
 
 const connection = mysql.createPool({
     host: process.env.MYSQL_HOST || 'localhost',
-    user: process.env.MYSQL_PORT || 'trybe',
-    password: process.env.MYSQL_PASSWORD || 'trybe12345',
+    user: process.env.MYSQL_PORT || 'root', 
+    password: process.env.MYSQL_PASSWORD || 'password',
     database: process.env.MYSQL_NAME || 'StoreManager',
 });
 

@@ -8,8 +8,7 @@ const getAllProducts = async () => {
 const prodId = async (id) => {
     const [oneProductSearch] = await getProductId(id);
 
-    // const erroMessage = { status: 400, message: 'Product not found' };
-    // if (oneProductSearch.length === 0) throw erroMessage;
+    if (oneProductSearch.length === 0) return true;
 
     return oneProductSearch;
 };
