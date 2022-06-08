@@ -1,10 +1,9 @@
 const Joi = require('joi');
 
-const validateProduct = Joi.object({
-    name: Joi.string().min(5).required().messages({
-        'string.min': '{{#label}} length must be at least 5 characters long',
+const validateSale = Joi.object({
+    productId: Joi.number().min(1).required().messages({
+        'string.min': '{{#label}} must be greater than or equal to 1',
     }),
-
     quantity: Joi.number().min(1).required().messages({
         'string.min': '{{#label}} must be greater than or equal to 1',
     }),
@@ -13,8 +12,8 @@ const validateProduct = Joi.object({
         'any.required': '{{#label}} is required0 ',
     });
 
-const validateProductMiddleware = (req, res, next) => {
-    const { error } = validateProduct.validate(req.body, { abortEarly: false });
+const validateSaleMiddleware = (req, res, next) => {
+    const { error } = validateSale.validate(req.body, { abortEarly: false });
     const { name, quantity } = req.body;
     if (error.message.includes('required')) {
         return res.status(400).json({ messages: error.message });
@@ -26,6 +25,6 @@ const validateProductMiddleware = (req, res, next) => {
     next();
 };
 
-module.exports = validateProductMiddleware;
+module.exports = validateSaleMiddleware;
 
 // https://stackoverflow.com/questions/48720942/node-js-joi-how-to-display-a-custom-error-messages
