@@ -5,7 +5,7 @@ const validateProductMiddleware = (req, res, next) => {
         return res.status(400).json({ message: '"name" is required' });
     }
 
-    if (name < 5) {
+    if (name.lenght < 5) {
         return res.status(422)
             .json({ message: '"name" length must be at least 5 characters long' });
     }
@@ -13,7 +13,7 @@ const validateProductMiddleware = (req, res, next) => {
         return res.status(400).json({ message: '"quantity" is required' });
     }
 
-    if (quantity < 1) {
+    if (quantity.lenght < 1) {
         return res.status(422)
             .json({ message: '"quantity" length must be at least 1 characters long' });
     }

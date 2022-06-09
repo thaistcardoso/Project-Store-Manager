@@ -20,17 +20,18 @@ const getOneProduct = async (req, res) => {
 
 const insertNewProduct = async (req, res) => {
     const { name, quantity } = req.body;
-    const newProductInserction = await insertProd(name, quantity);
-
+    
     const resultDB = await getAllProducts();
     const resultSearchName = resultDB.find((item) => item.name === name);
     // console.log('controlers', { id: newProductInserction[0].insertId, name, quantity });
-    // console.log(resultSearchName);
-   
+    // console.log('resultSearchName', resultSearchName);
+    
     if (resultSearchName) {
         return res.status(409).json({ message: 'Product already exists' });
     }
 
+    const newProductInserction = await insertProd(name, quantity);
+    
     return res.status(201).json({ id: newProductInserction[0].insertId, name, quantity });
     // return res.status(201).json(resultSearchName);
 };

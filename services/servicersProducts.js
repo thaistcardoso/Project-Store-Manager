@@ -13,8 +13,8 @@ const prodId = async (id) => {
     return oneProductSearch;
 };
 
-const insertProd = async (name, quantity) => {
-    const newProduct = await insertProduct(name, quantity);
+const insertProd = (name, quantity) => {
+    const newProduct = insertProduct(name, quantity);
     return newProduct;
 };
 
