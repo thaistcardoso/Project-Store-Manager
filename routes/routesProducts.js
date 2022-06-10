@@ -1,6 +1,6 @@
 const express = require('express');
 
-const validateProduct = require('../middlewares/validateProduct');
+const { validateName, validateQuantity } = require('../middlewares/index');
 
 const controlersProducts = require('../controllers/controlersProducts');
 
@@ -9,6 +9,6 @@ const routes = express.Router();
 routes.get('/', controlersProducts.getAllProd);
 routes.get('/:id', controlersProducts.getOneProduct);
 
-routes.post('/', validateProduct, controlersProducts.insertNewProduct);
+routes.post('/', validateName, validateQuantity, controlersProducts.insertNewProduct);
 
 module.exports = routes;
