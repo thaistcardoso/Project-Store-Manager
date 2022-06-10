@@ -2,6 +2,7 @@ const {
     getAllProducts,
     prodId,
     insertProd,
+    upDateById,
 } = require('../services/servicersProducts');
 
 const getAllProd = async (req, res) => {
@@ -11,11 +12,11 @@ const getAllProd = async (req, res) => {
 
 const getOneProduct = async (req, res) => {
     const { id } = req.params;
-    const oneProductresult = await prodId(id);
-    if (oneProductresult === true) {
+    const getProductById = await prodId(id);
+    if (getProductById.length === 0) {
         return res.status(404).json({ message: 'Product not found' });
     }
-    return res.status(200).json(oneProductresult[0]);
+    res.status(200).json(getProductById[0]);
 };
 
 const insertNewProduct = async (req, res) => {
@@ -23,8 +24,6 @@ const insertNewProduct = async (req, res) => {
     
     const resultDB = await getAllProducts();
     const resultSearchName = resultDB.find((item) => item.name === name);
-    // console.log('controlers', { id: newProductInserction[0].insertId, name, quantity });
-    // console.log('resultSearchName', resultSearchName);
     
     if (resultSearchName) {
         return res.status(409).json({ message: 'Product already exists' });
@@ -36,8 +35,28 @@ const insertNewProduct = async (req, res) => {
     // return res.status(201).json(resultSearchName);
 };
 
+const upDateNewProduct = async (req, res) => {
+    const { id } = req.params;
+    const { name, quantity } = req.body;
+
+    const resultDB = await prodId(id);
+    if (resultDB.length === 0) {
+        return res.status(404).json({ message: 'Product not found' });
+    }
+
+    await upDateById(name, quantity, id);
+    const ObjUpDate = {
+        id,
+        name,
+        quantity,
+    };
+    console.log('obj', ObjUpDate);
+     return res.status(200).json(ObjUpDate);
+};
+
 module.exports = {
     getAllProd,
     getOneProduct,
     insertNewProduct,
+    upDateNewProduct,
 };
