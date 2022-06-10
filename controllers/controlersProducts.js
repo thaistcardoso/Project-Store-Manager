@@ -3,6 +3,7 @@ const {
     prodId,
     insertProd,
     upDateById,
+    deleteProductById,
 } = require('../services/servicersProducts');
 
 const getAllProd = async (req, res) => {
@@ -54,9 +55,21 @@ const upDateNewProduct = async (req, res) => {
      return res.status(200).json(ObjUpDate);
 };
 
+const dbDelete = async (req, res) => {
+    const { id } = req.params;
+
+    const resultDB = await prodId(id);
+    if (resultDB.length === 0) {
+        return res.status(404).json({ message: 'Product not found' });
+    }
+    await deleteProductById(id);
+    return res.status(204).end(); 
+};
+
 module.exports = {
     getAllProd,
     getOneProduct,
     insertNewProduct,
     upDateNewProduct,
+    dbDelete,
 };

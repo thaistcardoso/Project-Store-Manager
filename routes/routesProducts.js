@@ -11,5 +11,6 @@ routes.get('/:id', controlersProducts.getOneProduct);
 
 routes.post('/', validateName, validateQuantity, controlersProducts.insertNewProduct);
 routes.put('/:id', validateName, validateQuantity, controlersProducts.upDateNewProduct);
+routes.delete('/:id', controlersProducts.dbDelete);
 
 module.exports = routes;
