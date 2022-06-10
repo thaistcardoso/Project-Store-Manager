@@ -18,7 +18,16 @@ INNER JOIN sales_products AS SP
 ON SP.sale_id = S.id WHERE id = ?;`, [id],
 );
 
+const insertSales = async (salesId, productId, quantity) => {
+    const insertSalesDb = await connection.execute(
+        'INSERT INTO StoreManager.sales_product (sales_id, product_id, quantity) VALUES(?, ?, ?);',
+        [salesId, productId, quantity],
+    );
+    return insertSalesDb;
+};
+
 module.exports = {
     allSalesDB,
     getSalesId,
+    insertSales,
 };
