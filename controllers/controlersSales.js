@@ -1,4 +1,8 @@
-const { getAllSales, salesId } = require('../services/servicesSales');
+const { 
+    getAllSales, 
+    salesId, 
+    insertedSalesProduct,
+} = require('../services/servicesSales');
 
 const allSales = async (req, res) => {
     const resultSalesDB = await getAllSales();
@@ -14,7 +18,14 @@ const getOneSales = async (req, res) => {
     return res.status(200).json(oneSalesresult); 
 };
 
+const insertSalesProduct = async (req, res) => {
+    const addSaleProduct = await insertedSalesProduct(req.body);
+    console.log('constrolers', addSaleProduct);
+    return res.status(201).json(addSaleProduct); 
+};
+
 module.exports = {
     allSales,
     getOneSales,
+    insertSalesProduct,
 };

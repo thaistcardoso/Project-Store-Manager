@@ -18,16 +18,28 @@ INNER JOIN sales_products AS SP
 ON SP.sale_id = S.id WHERE id = ?;`, [id],
 );
 
-const insertSales = async (salesId, productId, quantity) => {
-    const insertSalesDb = await connection.execute(
-        'INSERT INTO StoreManager.sales_product (sales_id, product_id, quantity) VALUES(?, ?, ?);',
-        [salesId, productId, quantity],
+const insertSales = async () => {
+    await connection.execute(
+        'INSERT INTO  StoreManager.sales (date) VALUES (now());',
     );
-    return insertSalesDb;
+    const [saleDB] = await connection.execute(
+        'SELECT id FROM StoreManager.sales ORDER BY id DESC LIMIT 1;',
+    );
+    return saleDB[0].id;
+};
+
+const insertSalesProduct = async (saleId, productId, quantity) => {
+    const insertSalesProductDb = await connection.execute(
+        'INSERT INTO StoreManager.sales_products (sale_id, product_id, quantity) VALUES(?, ?, ?);',
+        [saleId, productId, quantity],
+        );
+        console.log('models', insertSalesProductDb);
+    return insertSalesProductDb;
 };
 
 module.exports = {
     allSalesDB,
     getSalesId,
     insertSales,
+    insertSalesProduct,
 };

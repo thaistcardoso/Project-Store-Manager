@@ -1,16 +1,9 @@
-const { allSalesDB, getSalesId } = require('../models/modelsSales');
-
-// const saleObjId = {
-//     saleId: getSalesId.id,
-//     productId: getSalesId.product_id,
-//     quantity: getSalesId.quantity,
-//     date: getSalesId.date,
-// };
-// const saleObj = {
-//     productId: getSalesId.product_id,
-//     quantity: getSalesId.quantity,
-//     date: getSalesId.date,
-// };
+const { 
+    allSalesDB,
+    getSalesId, 
+    insertSales, 
+    insertSalesProduct,
+} = require('../models/modelsSales');
 
 const getAllSales = async () => {
     const [allSalesSearch] = await allSalesDB();
@@ -25,7 +18,21 @@ const salesId = async (id) => {
     return oneSalesSearch;
 };
 
+const insertedSalesProduct = async (saleArray) => {
+    const saleId = await insertSales(saleArray);
+    
+    saleArray.map(async (saleItem) => {
+        await insertSalesProduct(saleId, saleItem.productId, saleItem.quantity);
+    });
+    
+    return {
+        id: saleId,
+        itemsSold: saleArray,
+    };
+};
+
 module.exports = {
     getAllSales,
     salesId,
+    insertedSalesProduct,
 };

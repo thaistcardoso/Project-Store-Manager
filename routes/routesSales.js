@@ -8,4 +8,6 @@ route.get('/', controlersSales.allSales);
 
 route.get('/:id', controlersSales.getOneSales);
 
+route.post('/', controlersSales.insertSalesProduct);
+
 module.exports = route;
