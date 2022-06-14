@@ -2,6 +2,7 @@ const {
     getAllSales, 
     salesId, 
     insertedSalesProduct,
+    updateSales,
 } = require('../services/servicesSales');
 
 const allSales = async (req, res) => {
@@ -24,8 +25,26 @@ const insertSalesProduct = async (req, res) => {
     return res.status(201).json(addSaleProduct); 
 };
 
+const updateSaleQtd = async (req, res) => {
+    const { id } = req.params;
+
+    const searchId = await salesId(id);
+    if (searchId === true) {
+        return res.status(404).json({ message: 'Sale not found' });
+    }
+
+    await updateSales({ ...req.body[0], id });
+    console.log('teste do espalha - controlers', req.body);
+    const obj = {
+        saleId: id,
+        itemUpdated: req.body,
+    };
+    res.status(200).json(obj);
+};
+
 module.exports = {
     allSales,
     getOneSales,
     insertSalesProduct,
+    updateSaleQtd,
 };

@@ -3,6 +3,7 @@ const {
     getSalesId, 
     insertSales, 
     insertSalesProduct,
+    updateSaleQtd,
 } = require('../models/modelsSales');
 
 const getAllSales = async () => {
@@ -31,8 +32,14 @@ const insertedSalesProduct = async (saleArray) => {
     };
 };
 
+const updateSales = async ({ id, productId, quantity }) => {
+    const toSaleModel = await updateSaleQtd(id, productId, quantity);
+    return toSaleModel;
+};
+
 module.exports = {
     getAllSales,
     salesId,
     insertedSalesProduct,
+    updateSales,
 };

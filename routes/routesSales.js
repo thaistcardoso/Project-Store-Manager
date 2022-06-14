@@ -10,4 +10,7 @@ route.get('/:id', controlersSales.getOneSales);
 
 route.post('/', controlersSales.insertSalesProduct);
 
+route.put('/:id', controlersSales.updateSaleQtd);
+
 module.exports = route;
+//
