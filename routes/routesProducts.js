@@ -2,15 +2,15 @@ const express = require('express');
 
 const { validateName, validateQuantity } = require('../middlewares/index');
 
-const controlersProducts = require('../controllers/controlersProducts');
+const controllersProducts = require('../controllers/controllersProducts');
 
 const routes = express.Router();
 
-routes.get('/', controlersProducts.getAllProd);
-routes.get('/:id', controlersProducts.getOneProduct);
+routes.get('/', controllersProducts.getAllProd);
+routes.get('/:id', controllersProducts.getOneProduct);
 
-routes.post('/', validateName, validateQuantity, controlersProducts.insertNewProduct);
-routes.put('/:id', validateName, validateQuantity, controlersProducts.upDateNewProduct);
-routes.delete('/:id', controlersProducts.dbDelete);
+routes.post('/', validateName, validateQuantity, controllersProducts.insertNewProduct);
+routes.put('/:id', validateName, validateQuantity, controllersProducts.upDateNewProduct);
+routes.delete('/:id', controllersProducts.dbDelete);
 
 module.exports = routes;

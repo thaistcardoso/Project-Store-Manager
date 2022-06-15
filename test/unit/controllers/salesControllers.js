@@ -1,13 +1,13 @@
 const sinon = require('sinon');
 const { expect } = require('chai');
 
-const servicesProducts = require('../../../services/servicersProducts');
-const { getAllProd, getOneProduct, insertNewProduct, upDateNewProduct } = require('../../../controllers/controllersProducts');
+const servicesSales = require('../../../services/servicesSales');
+const { allSales, getOneSales, insertSalesProduct, updateSaleQtd } = require('../../../controllers/controllersSales');
 
-describe('Testando a camada Controllers na rota /products Method GET ', () => {
+describe('Testando a camada Controllers na rota /Sales Method GET ', () => {
     const req = {};
     const res = {};
-    describe('teste da função getAllProdcts', () => {
+    describe('teste da função allSales', () => {
         const resultDB = [
             {
                 id: 1,
@@ -24,37 +24,37 @@ describe('Testando a camada Controllers na rota /products Method GET ', () => {
         before(async () => {
             res.status = sinon.stub().returns(res);
             res.json = sinon.stub().returns();
-            sinon.stub(servicesProducts, 'getAllProducts').resolves(resultDB)
+            sinon.stub(servicesSales, 'insertedSalesProduct').resolves(resultDB)
         });
 
         after(() => {
-            servicesProducts.getAllProducts.restore();
+            servicesSales.insertedSalesProduct.restore();
         });
 
         it('Testa se o cód 200 retorna com caso de sucesso na requisição', async () => {
-            await getAllProd(req, res);
+            await allSales(req, res);
             expect(res.status.calledWith(200)).to.be.true;
         });
 
 
         it('Testa se o objeto retorna com caso de sucesso na requisição', async () => {
-            await getAllProd(req, res);
+            await allSales(req, res);
             expect(res.json.calledWith(resultDB)).to.be.false;
 
         });
 
         it('Testa se retorna um erro de "Not Found" caso não retorna nada na requisição', async () => {
-            await getAllProd(req, res);
+            await allSales(req, res);
             expect(res.json.calledWith({ message: 'Not Found' })).to.be.false;
         });
     });
 
 });
 
-describe('Testando a camada Controllers na rota /products/:id  Method GET ', () => {
+describe('Testando a camada Controllers na rota /sales/:id  Method GET ', () => {
     const req = {};
     const res = {};
-    describe('Teste da função getOneProduct', () => {
+    describe('Teste da função getOneSales', () => {
         const oneproductBD = {
             id: 1,
             name: "Martelo de Thor",
@@ -68,109 +68,127 @@ describe('Testando a camada Controllers na rota /products/:id  Method GET ', () 
 
             res.status = sinon.stub().returns(res);
             res.json = sinon.stub().returns();
-            sinon.stub(servicesProducts, 'prodId').resolves(oneproductBD)
+            sinon.stub(servicesSales, 'salesId').resolves(oneproductBD)
         });
 
         after(() => {
-            servicesProducts.prodId.restore();
+            servicesSales.salesId.restore();
         });
 
         it('Testa se o cód 200 retorna com ID correto passado na requisição', async () => {
-            await getOneProduct(req, res);
+            await getOneSales(req, res);
             expect(res.status.calledWith(200)).to.be.true;
             expect(res.json.calledWith(oneproductBD[0])).to.be.false;
         })
 
         it('Testa se o objeto retorna com caso de sucesso na requisição', async () => {
-            await getOneProduct(req, res);
+            await getOneSales(req, res);
             expect(res.json.calledWith(oneproductBD[0])).to.be.false;
 
         });
 
 
         it('Testa se retorna um erro de "Not Found" caso não retorna nada na requisição', async () => {
-            await getOneProduct(req, res);
+            await getOneSales(req, res);
             expect(res.json.calledWith({ message: 'Not Found' })).to.be.false;
         });
     });
 
 });
 
-describe('Testando a camada Controllers na rota /products  Method POST ', () => {
+describe('Testando a camada Controllers na rota /sales  Method POST ', () => {
     const req = {};
     const res = {};
-    describe('Teste da função insertNewProduct', () => {
-        const newProductBD = {
-            id: 1,
-            name: "Martelo de Thor",
-            quantity: 10
-        };
+    describe('Teste da função insertSalesProduct', () => {
+        const newProductBD =   {
+            "id": 1,
+            "itemsSold": [
+              {
+                "productId": 1,
+                "quantity": 3
+              }
+            ]
+          };
 
         before(async () => {
-            req.body = { name: "produto", quantity: 10 };
+            req.body =   [
+                {
+                  "productId": 1,
+                  "quantity": 3
+                }
+              ];
 
             res.status = sinon.stub().returns(res);
             res.json = sinon.stub().returns();
 
-            sinon.stub(servicesProducts, 'insertProd').resolves(newProductBD);
+            sinon.stub(servicesSales, 'insertedSalesProduct').resolves(newProductBD);
         });
 
         after(() => {
-            servicesProducts.insertProd.restore();
+            servicesSales.insertedSalesProduct.restore();
         });
 
-        it('Testa se retorna o status 201 ao cadatrar um novo produto com sucesso', async () => {
-            await insertNewProduct(req, res);
+        it('Testa se retorna o status 201 ao cadatrar uma nova venda com sucesso', async () => {
+            await insertSalesProduct(req, res);
             expect(res.json.calledWith(201)).to.be.false;
         });
 
-        it('Testa se o produto já existe no Banco de dados', async () => {
-            await insertNewProduct(req, res);
-            expect(res.json.calledWith({ message: 'Product already exists' })).to.be.true;
+        it('Testa se a venda já existe no Banco de dados', async () => {
+            await insertSalesProduct(req, res);
+            expect(res.json.calledWith({ message: 'Product already exists' })).to.be.false;
 
         });
     });
 });
 
-describe('Testando a camada Controllers na rota /products/:id  Method PUT ', () => {
+describe('Testando a camada Controllers na rota /sales/:id  Method PUT ', () => {
     const req = {};
     const res = {};
-    describe('Teste da função upDateProduct', () => {
-        const upDateProductBD = {
-            id: 1,
-            name: "Martelo de Thor",
-            quantity: 10
-        };
+    describe('Teste da função updateSaleQtd', () => {
+        const updateSaleBD =     {
+            "saleId": 1,
+            "itemUpdated": [
+              {
+                "productId": 1,
+                "quantity": 6
+              }
+            ]
+          };
 
         before(async () => {
             req.params = { id: 1 };
-            req.body = { name: "produto", quantity: 10 };
+            req.body =   [
+                {
+                  "productId": 1,
+                  "quantity": 6
+                }
+              ];
 
             res.status = sinon.stub().returns(res);
             res.json = sinon.stub().returns();
 
-            sinon.stub(servicesProducts, 'upDateById').resolves(upDateProductBD);
+            sinon.stub(servicesSales, 'updateSales').resolves(updateSaleBD);
         });
 
         after(() => {
-            servicesProducts.upDateById.restore();
+            servicesSales.updateSales.restore();
         });
 
         it('Testa se o cód 200 retorna quando um produto é atualizado', async () => {
-            await upDateNewProduct(req, res);
+            await updateSaleQtd(req, res);
             expect(res.status.calledWith(200)).to.be.true;
-            expect(res.json.calledWith(upDateProductBD)).to.be.false;
+            expect(res.json.calledWith(updateSaleBD)).to.be.true;
         })
 
         it('Testa se o objeto atualizado retorna em caso de sucesso na requisição', async () => {
-            await upDateNewProduct(req, res);
-            expect(res.json.calledWith(upDateProductBD)).to.be.false;
+            await updateSaleQtd(req, res);
+            expect(res.json.calledWith(updateSaleBD)).to.be.true;
 
         });
 
 
         it('Testa se retorna um erro de "Not Found" caso não o ID não seja encontrado', async () => {
-            await upDateNewProduct(req, res);
+            await updateSaleQtd(req, res);
             expect(res.json.calledWith({ message: 'Not Found' })).to.be.false;
         });
     });

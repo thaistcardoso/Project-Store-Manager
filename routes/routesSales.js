@@ -1,16 +1,16 @@
 const express = require('express');
 
-const controlersSales = require('../controllers/controlersSales');
+const controllersSales = require('../controllers/controllersSales');
 
 const route = express.Router();
 
-route.get('/', controlersSales.allSales);
+route.get('/', controllersSales.allSales);
 
-route.get('/:id', controlersSales.getOneSales);
+route.get('/:id', controllersSales.getOneSales);
 
-route.post('/', controlersSales.insertSalesProduct);
+route.post('/', controllersSales.insertSalesProduct);
 
-route.put('/:id', controlersSales.updateSaleQtd);
+route.put('/:id', controllersSales.updateSaleQtd);
 
 module.exports = route;
 //
