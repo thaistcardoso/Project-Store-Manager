@@ -33,7 +33,7 @@ const insertSalesProduct = async (saleId, productId, quantity) => {
         'INSERT INTO StoreManager.sales_products (sale_id, product_id, quantity) VALUES(?, ?, ?);',
         [saleId, productId, quantity],
         );
-        console.log('models', insertSalesProductDb);
+        // console.log('models', insertSalesProductDb);
     return insertSalesProductDb;
 };
 

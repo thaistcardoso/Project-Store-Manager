@@ -128,9 +128,9 @@ describe('Testando a camada Controllers na rota /sales  Method POST ', () => {
             servicesSales.insertedSalesProduct.restore();
         });
 
-        it('Testa se retorna o status 201 ao cadatrar uma nova venda com sucesso', async () => {
+        it('Testa se retorna o status 201 ao cadastrar uma nova venda com sucesso', async () => {
             await insertSalesProduct(req, res);
-            expect(res.json.calledWith(201)).to.be.false;
+            expect(res.status.calledWith(201)).to.be.true;
         });
 
         it('Testa se a venda já existe no Banco de dados', async () => {

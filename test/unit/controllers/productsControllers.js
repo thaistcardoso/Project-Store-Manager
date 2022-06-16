@@ -42,11 +42,6 @@ describe('Testando a camada Controllers na rota /products Method GET ', () => {
             expect(res.json.calledWith(resultDB)).to.be.false;
 
         });
-
-        it('Testa se retorna um erro de "Not Found" caso não retorna nada na requisição', async () => {
-            await getAllProd(req, res);
-            expect(res.json.calledWith({ message: 'Not Found' })).to.be.false;
-        });
     });
 
 });
@@ -88,8 +83,9 @@ describe('Testando a camada Controllers na rota /products/:id  Method GET ', () 
         });
 
 
-        it('Testa se retorna um erro de "Not Found" caso não retorna nada na requisição', async () => {
+        it('Testa se retorna status 404 e um erro de "Not Found" caso não retorna nada na requisição', async () => {
             await getOneProduct(req, res);
+            expect(res.status.calledWith(400)).to.be.false;
             expect(res.json.calledWith({ message: 'Not Found' })).to.be.false;
         });
     });
@@ -121,7 +117,7 @@ describe('Testando a camada Controllers na rota /products  Method POST ', () => 
 
         it('Testa se retorna o status 201 ao cadatrar um novo produto com sucesso', async () => {
             await insertNewProduct(req, res);
-            expect(res.json.calledWith(201)).to.be.false;
+            expect(res.status.calledWith(201)).to.be.false;
         });
 
         it('Testa se o produto já existe no Banco de dados', async () => {

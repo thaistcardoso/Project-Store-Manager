@@ -21,7 +21,7 @@ const getOneSales = async (req, res) => {
 
 const insertSalesProduct = async (req, res) => {
     const addSaleProduct = await insertedSalesProduct(req.body);
-    console.log('constrolers', addSaleProduct);
+    // console.log('constrolers', addSaleProduct);
     return res.status(201).json(addSaleProduct); 
 };
 
@@ -34,7 +34,6 @@ const updateSaleQtd = async (req, res) => {
     }
 
     await updateSales({ ...req.body[0], id });
-    console.log('teste do espalha - controlers', req.body);
     const obj = {
         saleId: id,
         itemUpdated: req.body,

@@ -51,7 +51,7 @@ const upDateNewProduct = async (req, res) => {
         name,
         quantity,
     };
-    console.log('obj', ObjUpDate);
+    // console.log('obj', ObjUpDate);
      return res.status(200).json(ObjUpDate);
 };
 
