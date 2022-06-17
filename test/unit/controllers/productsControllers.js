@@ -52,7 +52,7 @@ describe('Testando a camada Controllers na rota /products/:id  Method GET ', () 
     describe('Teste da função getOneProduct', () => {
         const oneproductBD = {
             id: 1,
-            name: "Martelo de Thor",
+            name: "Martelo do Thor",
             quantity: 10
         };
 
@@ -82,13 +82,10 @@ describe('Testando a camada Controllers na rota /products/:id  Method GET ', () 
 
         });
 
-        // it('Testa se retorna status 404 e um erro de "Not Found" caso não retorna nada na requisição', async () => {
-        //     await getOneProduct(req, res);
-        //     console.log('test', res.status.args);
-        //     // console.log('json', oneproductBD);
-        //     // expect(res.status.calledWith(404)).to.be.true;
-        //     expect(res.json.calledWith({ message: 'Not Found' })).to.be.equal;
-        // });
+        it('Testa se retorn um erro de "Not Found" caso não retorna nada na requisição', async () => {
+            await getOneProduct(req, res);
+            expect(res.json.calledWith({ message: 'Not Found' })).to.be.equal;
+        });
     });
 
 });
@@ -155,22 +152,20 @@ describe('Testando a camada Controllers na rota /products/:id  Method PUT ', () 
 
         it('Testa se o cód 200 retorna quando um produto é atualizado', async () => {
             await upDateNewProduct(req, res);
-            console.log('test', res.status.args);
-            console.log('json', upDateProductBD);
             expect(res.status.calledWith(200)).to.be.true;
             expect(res.json.calledWith(upDateProductBD)).to.be.equal;
         });
 
         it('Testa se o objeto atualizado retorna em caso de sucesso na requisição', async () => {
             await upDateNewProduct(req, res);
-            expect(res.json.calledWith(upDateProductBD)).to.be.true;
+            expect(res.json.calledWith(upDateProductBD)).to.be.equal;
 
         });
 
 
         it('Testa se retorna um erro de "Not Found" caso não o ID não seja encontrado', async () => {
             await upDateNewProduct(req, res);
-            expect(res.json.calledWith({ message: 'Not Found' })).to.be.true;
+            expect(res.json.calledWith({ message: 'Not Found' })).to.be.equal;
         });
     });
 });
