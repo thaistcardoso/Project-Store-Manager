@@ -37,11 +37,11 @@ describe('Testando a camada Controllers na rota /products Method GET ', () => {
         });
 
 
-        // it('Testa se o objeto retorna com caso de sucesso na requisição', async () => {
-        //     await getAllProd(req, res);
-        //     expect(res.json.calledWith(resultDB)).to.be.true;
+         it('Testa se o objeto retorna com caso de sucesso na requisição', async () => {
+            await getAllProd(req, res);
+            expect(res.json.calledWith(resultDB)).to.be.equal;
 
-        // });
+         });
     });
 
 });
@@ -70,23 +70,24 @@ describe('Testando a camada Controllers na rota /products/:id  Method GET ', () 
             servicesProducts.prodId.restore();
         });
 
-        // it('Testa se o cód 200 retorna com ID correto como passado na requisição', async () => {
-        //     await getOneProduct(req, res);
-        //     expect(res.status.calledWith(200)).to.be.true;
-        //     expect(res.json.calledWith(oneproductBD[0])).to.be.true;
-        // });
+        it('Testa se o cód 200 retorna com ID correto como passado na requisição', async () => {
+            await getOneProduct(req, res);
+            expect(res.status.calledWith(200)).to.be.true;
+            expect(res.json.calledWith(oneproductBD)).to.be.equal;
+        });
 
-        // it('Testa se o objeto retorna com caso de sucesso na requisição', async () => {
-        //     await getOneProduct(req, res);
-        //     expect(res.json.calledWith(oneproductBD[0])).to.be.true;
+        it('Testa se o objeto retorna com caso de sucesso na requisição', async () => {
+            await getOneProduct(req, res);
+            expect(res.json.calledWith(oneproductBD)).to.be.equal;
 
-        // });
-
+        });
 
         // it('Testa se retorna status 404 e um erro de "Not Found" caso não retorna nada na requisição', async () => {
         //     await getOneProduct(req, res);
-        //     expect(res.status.calledWith(400)).to.be.true;
-        //     expect(res.json.calledWith({ message: 'Not Found' })).to.be.true;
+        //     console.log('test', res.status.args);
+        //     // console.log('json', oneproductBD);
+        //     // expect(res.status.calledWith(404)).to.be.true;
+        //     expect(res.json.calledWith({ message: 'Not Found' })).to.be.equal;
         // });
     });
 
@@ -115,10 +116,10 @@ describe('Testando a camada Controllers na rota /products  Method POST ', () => 
             servicesProducts.insertProd.restore();
         });
 
-        // it('Testa se retorna o status 201 ao cadatrar um novo produto com sucesso', async () => {
-        //     await insertNewProduct(req, res);
-        //     expect(res.status.calledWith(201)).to.be.true;
-        // });
+        it('Testa se retorna o status 201 ao cadatrar um novo produto com sucesso', async () => {
+            await insertNewProduct(req, res);
+            expect(res.status.calledWith(201)).to.be.true;
+        });
 
         it('Testa se o produto já existe no Banco de dados', async () => {
             await insertNewProduct(req, res);
@@ -152,22 +153,25 @@ describe('Testando a camada Controllers na rota /products/:id  Method PUT ', () 
             servicesProducts.upDateById.restore();
         });
 
-        // it('Testa se o cód 200 retorna quando um produto é atualizado', async () => {
-        //     await upDateNewProduct(req, res);
-        //     expect(res.status.calledWith(200)).to.be.true;
-        //     expect(res.json.calledWith(upDateProductBD)).to.be.true;
-        // });
+        it('Testa se o cód 200 retorna quando um produto é atualizado', async () => {
+            await upDateNewProduct(req, res);
+            console.log('test', res.status.args);
+            console.log('json', upDateProductBD);
+            expect(res.status.calledWith(200)).to.be.true;
+            expect(res.json.calledWith(upDateProductBD)).to.be.equal;
+        });
 
-        // it('Testa se o objeto atualizado retorna em caso de sucesso na requisição', async () => {
-        //     await upDateNewProduct(req, res);
-        //     expect(res.json.calledWith(upDateProductBD)).to.be.true;
+        it('Testa se o objeto atualizado retorna em caso de sucesso na requisição', async () => {
+            await upDateNewProduct(req, res);
+            expect(res.json.calledWith(upDateProductBD)).to.be.true;
 
-        // });
+        });
 
 
-        // it('Testa se retorna um erro de "Not Found" caso não o ID não seja encontrado', async () => {
-        //     await upDateNewProduct(req, res);
-        //     expect(res.json.calledWith({ message: 'Not Found' })).to.be.true;
-        // });
+        it('Testa se retorna um erro de "Not Found" caso não o ID não seja encontrado', async () => {
+            await upDateNewProduct(req, res);
+            expect(res.json.calledWith({ message: 'Not Found' })).to.be.true;
+        });
     });
 });
+//
