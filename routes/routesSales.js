@@ -12,5 +12,6 @@ route.post('/', controllersSales.insertSalesProduct);
 
 route.put('/:id', controllersSales.updateSaleQtd);
 
+route.delete('/:id', controllersSales.deleteSaleId);
+
 module.exports = route;
-//

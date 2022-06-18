@@ -1,9 +1,10 @@
-const { 
+const {
     allSalesDB,
-    getSalesId, 
-    insertSales, 
+    getSalesId,
+    insertSales,
     insertSalesProduct,
     updateSaleQtd,
+    deleteSale,
 } = require('../models/modelsSales');
 
 const getAllSales = async () => {
@@ -21,11 +22,11 @@ const salesId = async (id) => {
 
 const insertedSalesProduct = async (saleArray) => {
     const saleId = await insertSales(saleArray);
-    
+
     saleArray.map(async (saleItem) => {
         await insertSalesProduct(saleId, saleItem.productId, saleItem.quantity);
     });
-    
+
     return {
         id: saleId,
         itemsSold: saleArray,
@@ -37,9 +38,16 @@ const updateSales = async ({ id, productId, quantity }) => {
     return toSaleModel;
 };
 
+const salesDelete = async (id) => {
+    const toSaleDelete = await deleteSale(id);
+    return toSaleDelete;
+};
+
 module.exports = {
     getAllSales,
     salesId,
     insertedSalesProduct,
     updateSales,
+    salesDelete,
 };
+//
