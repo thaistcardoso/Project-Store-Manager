@@ -25,7 +25,8 @@ const insertSales = async () => {
     const [saleDB] = await connection.execute(
         'SELECT id FROM StoreManager.sales ORDER BY id DESC LIMIT 1;',
     );
-    return saleDB[0].id;
+    console.log('saleDB', saleDB[0]);
+    return saleDB[0];
 };
 
 const insertSalesProduct = async (saleId, productId, quantity) => {
@@ -52,6 +53,13 @@ const deleteSale = async (id) => {
     return deleteSalesDB;
 };
 
+// const deleteSaleProduct = async (id) => {
+//     const deleteSalesProductDB = await connection.execute(
+//         'DELETE FROM StoreManager.sales_products WHERE sale_id = ?;', [id],
+//     );
+//     return deleteSalesProductDB;
+// };
+
 module.exports = {
     allSalesDB,
     getSalesId,
@@ -59,5 +67,6 @@ module.exports = {
     insertSalesProduct,
     updateSaleQtd,
     deleteSale,
+    // deleteSaleProduct,
 };
 //
