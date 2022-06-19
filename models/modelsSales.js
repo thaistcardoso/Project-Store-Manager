@@ -25,8 +25,8 @@ const insertSales = async () => {
     const [saleDB] = await connection.execute(
         'SELECT id FROM StoreManager.sales ORDER BY id DESC LIMIT 1;',
     );
-    console.log('saleDB', saleDB[0]);
-    return saleDB[0];
+    // console.log('saleDB', saleDB[0]);
+    return saleDB[0].id;
 };
 
 const insertSalesProduct = async (saleId, productId, quantity) => {

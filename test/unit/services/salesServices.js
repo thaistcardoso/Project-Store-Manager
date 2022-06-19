@@ -90,7 +90,7 @@ describe('Testa se o banco de dados está realizando as busca vendas de por id',
 
 });
 
-describe('testa se o banco de dados está inserindo a uma nova venda ', () => {
+describe('testa se o banco de dados está inserindo a uma nova venda - servicers', () => {
     describe('caso a inserção ocorra com sucesso', () => {
         const ProductSaled = [{ "product_id": 4, "quantity": 15 }];
         

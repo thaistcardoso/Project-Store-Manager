@@ -2,7 +2,7 @@ const sinon = require('sinon');
 const { expect } = require('chai');
 const connection = require('../../../db');
 
-const { allSalesDB, getSalesId, insertSales } = require('../../../models/modelsSales');
+const { allSalesDB, getSalesId, insertSalesProduct } = require('../../../models/modelsSales');
 
 describe('Testa se o banco de dados está realizando as busca por todos as vendas', () => {
     describe('caso não haja nenhum vendas no banco de dados.', () => {
@@ -99,17 +99,17 @@ describe('testa se o banco de dados está inserindo a uma nova venda ', () => {
             sinon.stub(connection, 'execute').resolves([[identify]]);
         });
 
-        after(() => {
+        after(async() => {
             connection.execute.restore();
         });
 
-        it('retorna um objeto', async () => {
-            const [saleDB] = await insertSales(ProductSaled);
-            expect(saleDB).to.be.an('object');
+        it('retorna um array ', async () => {
+            const [saleDB] = await insertSalesProduct(ProductSaled);
+            expect(saleDB).to.be.an('array');
         });
 
         it('o array não é vazio', async () => {
-            const [saleDB] = await insertSales(ProductSaled);
+            const [saleDB] = await insertSalesProduct(ProductSaled);
             expect(saleDB).to.be.not.empty;
 
         });
