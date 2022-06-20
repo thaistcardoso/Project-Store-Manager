@@ -17,7 +17,11 @@ const getOneSales = async (req, res) => {
 const insertSalesProduct = async (req, res) => {
     const addSaleProduct = await servicersSales.insertedSalesProduct(req.body);
     // console.log('constrolers', addSaleProduct);
-    return res.status(201).json(addSaleProduct); 
+    
+    if (addSaleProduct.error) {
+        return res.status(422).json({ message: 'Such amount is not permitted to sell' });
+    }
+    res.status(201).json(addSaleProduct); 
 };
 
 const updateSaleQtd = async (req, res) => {
